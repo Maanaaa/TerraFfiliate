@@ -1,8 +1,39 @@
-globalmessages:
+globalmessaBges:
+  noPerm: "&cErreur, vous n'avez pas la permission d'effectuer cette commande !"
   notAPlayer: "&cErreur, vous n'êtes pas un joueur."
+  unknownCommand: "&cErreur, cette commande n'existe pas !"
+  noPlayer: "&cErreur, le joueur ciblé semble être hors ligne !"
+  reload: "&f>>> &e&lTerraFfiliate a été mis à jour avec succès !"
+affiliateEnabled:
+  playSound:
+    enable: true
+    sound: ENTITY_PLAYER_LEVELUP
+  fireworks:
+    enable: true
+    fireworks:
+      type: STAR #STAR/BALL/BALL_LARGE/BRUST/CREEPER
+      color-1: Color.BLUE
+      color-2: Color.GRAY
+      color-3: Color.ORANGE
+  message:
+    - "&7&n                             "
+    - " "
+    - " "
+    - " "
+    - "    &e&l⚡ &b&lPLAY.TERRACRAFT.FR &e&l⚡ "
+    - " "
+    - "&e&l✪ &6&lFélicitations ! &e&l✪"
+    - "   &7➤ &bTu as créé ton lien de parrainage sur &lTerraCraft.FR &r&b!"
+    - " "
+    - "&k&l!! &6&lRemporte &r&e&n20€ par mois &r&6&len ayant "
+    - "&6&lle plus de joueurs parrainés de tout le serveur ! &k&l!!"
+    - " "
+    - " &7&l• Ton adresse d'affiliation : &e&n%playerip%.terracraft.fr"
+    - " "
+    - "&7&n                             "
 menus:
   enableAffil: # Menu to activate the affiliate system
-    title: "    &e&l⚡ &bPLAY.TERRACRAFT.FR &e⚡"
+    title: "    &e&l⚡ &bPLAY.TERRACRAFT.FR &e⚡ "
     size: 27
     items:
       1:
@@ -54,16 +85,21 @@ menus:
           - "&brejoindre le serveur avec ton "
           - "&badresse d'affiliation et obtient"
           - "&bdes récompenses en retour !"
-          - ""
+          - " "
+          - " "
           - "&6&k! &r&e20€ À GAGNER CHAQUE MOIS &6&k!"
           - " "
           - " "
           - "&b>> Tu donneras cette adresse"
-          - "   &7>> &e%player%.terracraft.fr &7<<"
+          - "    &7>> &e%playerip%.terracraft.fr &7<<"
           - " "
           - " "
-          - "    &c&l❤ &b&lTERRACRAFT.FR &c&l❤  "
-        material: NETHERITE_SCRAP
+          - "     &c&l❤ &b&lTERRACRAFT.FR &c&l❤  "
+        material: BELL
+        event: create_affiliate_adress
         slots:
           - 13
-        event: create_affiliate_adress
+  enabledAffil: # Menu who is shown when player already have an affiliate adress
+    title: "    &e&l⚡ &bPLAY.TERRACRAFT.FR &e⚡ "
+    size: 27
+    items:

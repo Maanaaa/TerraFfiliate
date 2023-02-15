@@ -1,6 +1,7 @@
 package fr.manaa.utils.loading;
 
 import fr.manaa.*;
+import fr.manaa.cmds.administration.*;
 import fr.manaa.cmds.menus.*;
 import fr.manaa.events.*;
 import fr.manaa.events.menus.*;
@@ -27,8 +28,9 @@ public class PluginInitializer {
         createAffilConfig();
         // INITIALIZE THE /AFFIL COMMAND
         Objects.requireNonNull(this.main.getCommand("affil")).setExecutor(new HomeMenu(main));
+        Objects.requireNonNull(this.main.getCommand("affilreload")).setExecutor(new Reload(main));
         main.getServer().getPluginManager().registerEvents(new RegisterPlayerInFile(main), main);
-        main.getServer().getPluginManager().registerEvents(new CancelClicking(main), main);
+        main.getServer().getPluginManager().registerEvents(new Dispatch(main), main);
     }
 
     public FileConfiguration getCustomConfig(){

@@ -22,7 +22,10 @@ public class HomeMenu implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
         int size = main.getConfig().getInt("menus.enableAffil.size");
-        String title = Objects.requireNonNull(main.getConfig().getString("menus.enableAffil.title")).replace("&", "§");
+        String title = Objects.requireNonNull(main.getConfig().getString("menus.enabledAffil.title")).replace("&", "§");
+
+        int sizeEnabled = main.getConfig().getInt("menus.enableAffil.size");
+        String titleEnabled = Objects.requireNonNull(main.getConfig().getString("menus.enabledAffil.title")).replace("&", "§");
 
         if(sender instanceof Player){
             // Get the file affil.yml
@@ -34,7 +37,9 @@ public class HomeMenu implements CommandExecutor {
 
             boolean hasIp = config.getBoolean("affiliation-adress-list." + player + ".enable");
             if (hasIp) {
-                p.sendMessage("§6Adresse activé : §7"+player+".terracraft.fr");
+                Inventory enabledAffilMenu = Bukkit.createInventory(null, sizeEnabled, titleEnabled);
+
+                p.openInventory(enabledAffilMenu);
             } else {
                 // OPEN AFFILIATION MENU FIRST
                 Inventory enableAffilMenu = Bukkit.createInventory(null, size, title);
@@ -65,9 +70,12 @@ public class HomeMenu implements CommandExecutor {
         ItemMeta itemMeta = item.getItemMeta();
         assert itemMeta != null;
         itemMeta.setDisplayName(name);
+
+        String playerip = player.getDisplayName().replace("_","").toLowerCase();
         for(int i = 0;i < description.size(); i++){
-            description.set(i, description.get(i).replace("&","§").replace("%player%", player.getDisplayName()));
+            description.set(i, description.get(i).replace("&","§").replace("%playerip%", playerip));
         }
+
         itemMeta.setLore(description);
         item.setItemMeta(itemMeta);
 

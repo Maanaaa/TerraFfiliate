@@ -25,7 +25,7 @@ public class RegisterPlayerInFile implements Listener {
         File configFile = new File(main.getDataFolder(), "affil.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
 
-        String player = p.getName();
+        String player = p.getDisplayName();
 
         // Add player to file if player isn't in
         if(!(config.contains("affiliation-adress-list." + player))){
