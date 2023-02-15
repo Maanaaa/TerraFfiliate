@@ -1,14 +1,17 @@
 package fr.manaa.utils.loading;
 
 import fr.manaa.*;
+import fr.manaa.cmds.menus.*;
+import fr.manaa.events.*;
+import fr.manaa.events.menus.*;
 import org.bukkit.configuration.*;
-import org.bukkit.configuration.file.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 
 import java.io.IOException;
+import java.util.*;
 
 public class PluginInitializer {
 
@@ -22,12 +25,17 @@ public class PluginInitializer {
         // CREATION OF CONFIG.YML FILE
         this.main.saveDefaultConfig();
         createAffilConfig();
+        // INITIALIZE THE /AFFIL COMMAND
+        Objects.requireNonNull(this.main.getCommand("affil")).setExecutor(new HomeMenu(main));
+        main.getServer().getPluginManager().registerEvents(new RegisterPlayerInFile(main), main);
+        main.getServer().getPluginManager().registerEvents(new CancelClicking(main), main);
     }
 
     public FileConfiguration getCustomConfig(){
         return this.affilConfig;
     }
 
+    // CREATION OF AFFIL.YML FILE
     private void createAffilConfig() {
         affilConfigFile = new File(this.main.getDataFolder(), "affil.yml");
         if(!(affilConfigFile.exists())){
@@ -44,13 +52,5 @@ public class PluginInitializer {
         }
     }
 
-
-
-
-    public void initializeDisable(){
-
-
-
-    }
 
 }

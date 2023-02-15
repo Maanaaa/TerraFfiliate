@@ -5,7 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Main extends JavaPlugin {
 
-    private PluginInitializer pluginInitializer = new PluginInitializer(this);
+    private final PluginInitializer pluginInitializer = new PluginInitializer(this);
 
     @Override
     public void onEnable() {
@@ -14,6 +14,6 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        pluginInitializer.initializeDisable();
+        // disable
     }
 }

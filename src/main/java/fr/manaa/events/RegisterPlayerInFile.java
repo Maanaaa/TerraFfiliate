@@ -7,12 +7,13 @@ import org.bukkit.event.*;
 import org.bukkit.event.player.*;
 
 import java.io.*;
+import java.util.*;
 
-public class RegisterInFile implements Listener {
+public class RegisterPlayerInFile implements Listener {
 
     private Main main;
 
-    public RegisterInFile(Main main) {
+    public RegisterPlayerInFile(Main main) {
         this.main = main;
     }
 
@@ -20,15 +21,21 @@ public class RegisterInFile implements Listener {
     public void onJoin(PlayerJoinEvent e){
         Player p = (Player) e.getPlayer();
 
-        // Récupère le fichier de configuration
+        // Get the configuration file
         File configFile = new File(main.getDataFolder(), "affil.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
 
-        // Ajoute un joueur avec un booléen "enable" correspondant à son pseudo
         String player = p.getName();
-        config.set("affiliation-adress-list." + player + ".enable", false);
 
-        // Sauvegarde les modifications du fichier de configuration
+        // Add player to file if player isn't in
+        if(!(config.contains("affiliation-adress-list." + player))){
+            config.set("affiliation-adress-list." + player + ".enable", false);
+        }
+        else{
+            return;
+        }
+
+        // Save modifications
         try {
             config.save(configFile);
         } catch (IOException et) {
