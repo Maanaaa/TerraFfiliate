@@ -38,9 +38,7 @@ public class Dispatch implements Listener {
                 p.updateInventory();
                 p.closeInventory();
                 // CLOUDFLARE API
-
-                // SET TO TRUE PLAYER ADRESS
-
+                // SET TO TRUE PLAYER AFFILIATE
                 File configFile = new File(main.getDataFolder(), "affil.yml");
                 YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
                 String player = p.getDisplayName();

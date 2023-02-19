@@ -36,6 +36,7 @@ menus:
     title: "    &e&l⚡ &bPLAY.TERRACRAFT.FR &e⚡ "
     size: 27
     items:
+      number: 3
       1:
         display-name: " "
         lore: ""
@@ -99,7 +100,119 @@ menus:
         event: create_affiliate_adress
         slots:
           - 13
+
+
+
   enabledAffil: # Menu who is shown when player already have an affiliate adress
     title: "    &e&l⚡ &bPLAY.TERRACRAFT.FR &e⚡ "
     size: 27
     items:
+      number: 2
+      1:
+        display-name: " "
+        lore: ""
+        material: LIGHT_BLUE_STAINED_GLASS_PANE
+        slots:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 9
+          - 10
+          - 11
+          - 12
+          - 14
+          - 16
+          - 17
+          - 18
+          - 19
+          - 20
+          - 21
+          - 22
+          - 23
+          - 24
+          - 25
+          - 26
+        event: none
+      2:
+        display-name: "&7&l &6&lStatistiques"
+        lore:
+          - "&6&l%player%"
+          - " "
+          - "&7➤ &bVous avez parrainé &f: &646 joueurs &b!"
+          - "&bVous êtes &e&l1 er &r&bdans le classement !"
+          - "&bContinuez dans cette lancée pour"
+          - "&bremporter &e&l20 euros &r&b!"
+          - ""
+          - "&7➤ &bVous avez remporté(e)"
+          - "&ble concours &e&l3 &bfois !"
+          - " "
+          - "    &6&k! &r&e20€ À GAGNER CHAQUE MOIS &6&k!"
+          - "       &7>> &e%playerip%.terracraft.fr &7<<"
+          - " "
+          - " "
+          - "         &c&l❤ &b&lTERRACRAFT.FR &c&l❤  "
+        material: PLAYER_HEAD:%player%
+        event: create_affiliate_adress
+        slots:
+          - 11
+      3:
+        display-name: "&cDisponible prochaînement"
+        lore:
+          - ""
+          - " "
+          - "&7➤ &bNous travaillons chaques jours"
+          - "&bpour vous offrir des nouveautés"
+          - "&bde façon régulière !"
+          - ""
+          - "&7➤ &bMerci de jouer sur notre serveur !"
+          - " "
+          - " &6Psssttt, tu le savais ?"
+          - " &7Tout TerraCraft a été construit"
+          - " &7par le plus sexy d'entre-nous"
+          - " &7SexyVachette !"
+          - " "
+          - " "
+          - "         &c&l❤ &b&lTERRACRAFT.FR &c&l❤  "
+        material: PUFFERFISH
+        event: create_affiliate_adress
+        slots:
+          - 13
+      4:
+        display-name: "&cDisponible prochaînement"
+        lore:
+          - ""
+          - " "
+          - "&7➤ &bNous travaillons chaques jours"
+          - "&bpour vous offrir des nouveautés"
+          - "&bde façon régulière !"
+          - ""
+          - "&7➤ &bMerci de jouer sur notre serveur !"
+          - " "
+          - " &6Psssttt, tu le savais ?"
+          - " &7Ce système d'affiliation a été"
+          - " &7développé par l'équipe de dév de"
+          - " &7TerraCraft, pour TerraCraft !"
+          - " "
+          - " "
+          - "        &c&l❤ &b&lTERRACRAFT.FR &c&l❤  "
+        material: PUFFERFISH
+        event: create_affiliate_adress
+        slots:
+          - 15
+      5:
+        display-name: " "
+        lore:
+          - "&7psssttttt... si t'as trouvé cette vitre,"
+          -  "&7sache que tu as 5% de réduction sur "
+          - "&7la boutique si tu utilises le code"
+          - "&7suivant: 'painauchocolat5'"
+          - "&7Mais chutttt.. garde le pour toi..."
+        material: LIGHT_BLUE_STAINED_GLASS_PANE
+        slots:
+          - 8
+        event: none
