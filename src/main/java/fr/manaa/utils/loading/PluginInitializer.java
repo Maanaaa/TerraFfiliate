@@ -26,7 +26,7 @@ public class PluginInitializer {
         // CREATION OF CONFIG.YML FILE
         this.main.saveDefaultConfig();
         createAffilConfig();
-        // INITIALIZE THE /AFFIL COMMAND
+        // INITIALIZE THE /AFFIL COMMANDS
         Objects.requireNonNull(this.main.getCommand("affil")).setExecutor(new HomeMenu(main));
         Objects.requireNonNull(this.main.getCommand("affilreload")).setExecutor(new Reload(main));
         main.getServer().getPluginManager().registerEvents(new RegisterPlayerInFile(main), main);

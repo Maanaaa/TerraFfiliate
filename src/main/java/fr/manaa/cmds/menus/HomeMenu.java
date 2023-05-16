@@ -34,9 +34,8 @@ public class HomeMenu implements CommandExecutor {
 
             Player p = (Player) sender;
             String player = p.getDisplayName();
-
             boolean hasIp = config.getBoolean("affiliation-adress-list." + player + ".enable");
-            if (hasIp) {
+            if (hasIp == true) {
                 Inventory enabledAffilMenu = Bukkit.createInventory(null, sizeEnabled, titleEnabled);
 
                 registerItem(p, enabledAffilMenu, 1, "enabledAffil");
@@ -55,7 +54,6 @@ public class HomeMenu implements CommandExecutor {
                 registerItem(p, enableAffilMenu, 3, "enableAffil");
 
                 p.openInventory(enableAffilMenu);
-
             }
             }
 
