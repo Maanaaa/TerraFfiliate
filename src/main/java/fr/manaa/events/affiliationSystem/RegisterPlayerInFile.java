@@ -1,4 +1,4 @@
-package fr.manaa.events;
+package fr.manaa.events.affiliationSystem;
 
 import fr.manaa.*;
 import org.bukkit.configuration.file.*;
@@ -7,7 +7,6 @@ import org.bukkit.event.*;
 import org.bukkit.event.player.*;
 
 import java.io.*;
-import java.util.*;
 
 public class RegisterPlayerInFile implements Listener {
 
@@ -22,7 +21,7 @@ public class RegisterPlayerInFile implements Listener {
         Player p = (Player) e.getPlayer();
 
         // Get the configuration file
-        File configFile = new File(main.getDataFolder(), "affil.yml");
+        File configFile = new File(main.getDataFolder(), "players.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
 
         String player = p.getDisplayName();

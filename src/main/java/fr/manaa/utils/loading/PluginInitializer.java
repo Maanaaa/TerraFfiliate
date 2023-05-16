@@ -1,9 +1,10 @@
 package fr.manaa.utils.loading;
 
+import com.google.gson.*;
 import fr.manaa.*;
 import fr.manaa.cmds.administration.*;
 import fr.manaa.cmds.menus.*;
-import fr.manaa.events.*;
+import fr.manaa.events.affiliationSystem.*;
 import fr.manaa.events.menus.*;
 import org.bukkit.configuration.*;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -21,7 +22,7 @@ public class PluginInitializer {
     private FileConfiguration affilConfig;
 
     public PluginInitializer(Main main){this.main = main;}
-
+    private Gson gson;
     public void initialize(){
         // CREATION OF CONFIG.YML FILE
         this.main.saveDefaultConfig();
@@ -31,6 +32,8 @@ public class PluginInitializer {
         Objects.requireNonNull(this.main.getCommand("affilreload")).setExecutor(new Reload(main));
         main.getServer().getPluginManager().registerEvents(new RegisterPlayerInFile(main), main);
         main.getServer().getPluginManager().registerEvents(new Dispatch(main), main);
+
+        main.getServer().getPluginManager().registerEvents(new NewPlayerAffiliated(main), main);
     }
 
     public FileConfiguration getCustomConfig(){
@@ -39,10 +42,10 @@ public class PluginInitializer {
 
     // CREATION OF AFFIL.YML FILE
     private void createAffilConfig() {
-        affilConfigFile = new File(this.main.getDataFolder(), "affil.yml");
+        affilConfigFile = new File(this.main.getDataFolder(), "players.yml");
         if(!(affilConfigFile.exists())){
             affilConfigFile.getParentFile().mkdirs();
-            this.main.saveResource("affil.yml", false);
+            this.main.saveResource("players.yml", false);
         }
 
         affilConfig = new YamlConfiguration();
@@ -53,6 +56,4 @@ public class PluginInitializer {
             e.printStackTrace();
         }
     }
-
-
 }

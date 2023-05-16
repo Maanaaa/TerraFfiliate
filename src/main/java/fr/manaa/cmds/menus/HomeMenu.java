@@ -3,7 +3,6 @@ package fr.manaa.cmds.menus;
 import fr.manaa.*;
 import org.bukkit.*;
 import org.bukkit.command.*;
-import org.bukkit.configuration.*;
 import org.bukkit.configuration.file.*;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.*;
@@ -28,8 +27,8 @@ public class HomeMenu implements CommandExecutor {
         String titleEnabled = Objects.requireNonNull(main.getConfig().getString("menus.enabledAffil.title")).replace("&", "§");
 
         if(sender instanceof Player){
-            // Get the file affil.yml
-            File configFile = new File(main.getDataFolder(), "affil.yml");
+            // Get the file players.yml
+            File configFile = new File(main.getDataFolder(), "players.yml");
             YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
 
             Player p = (Player) sender;
@@ -59,6 +58,8 @@ public class HomeMenu implements CommandExecutor {
 
         return false;
         }
+
+        // ITEMS
 
     public void registerItem(Player player, Inventory menu, int itemNumber, String config){
         newItem(Objects.requireNonNull(player.getPlayer()),
