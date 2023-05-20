@@ -1,3 +1,10 @@
+database:
+  url: ""
+  host: localhost
+  port: 3306
+  database: db
+  user: username
+  password: pass
 globalmessaBges:
   noPerm: "&cErreur, vous n'avez pas la permission d'effectuer cette commande !"
   notAPlayer: "&cErreur, vous n'êtes pas un joueur."
