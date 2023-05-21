@@ -1,8 +1,11 @@
 package fr.manaa.utils.loading;
 
 import fr.manaa.*;
-import org.bukkit.entity.*;
+import fr.manaa.events.menus.*;
+import org.jdbi.v3.core.*;
 
+import java.io.*;
+import java.net.*;
 import java.sql.*;
 
 public class DatabaseManager {
@@ -14,39 +17,47 @@ public class DatabaseManager {
     public DatabaseManager(Main main) {
         this.main = main;
     }
-    //database:
-    // url: ""
-    //  host: localhost
-    //  port: 3306
-    //  database: db
-    //  user: username
-    //  password: pass
-    //
-    //globalmessaBges:
-
 
 
 
     public void connect(){
-        String url = main.getConfig().getString("database.url")
-        String host = main.getConfig().getString("database.host");
-        int port = main.getConfig().getInt("database.port");
-        String database = main.getConfig().getString("database.database");
-        String user = main.getConfig().getString("database.user");
-        String password = main.getConfig().getString("database.pass");
+        String jdbcUrl = "jdbc:mysql://172.17.0.4:3306/affiliation";
+        String username = "root";
+        String password = "j57jQ22YsG#h";
 
-        try {
-            connection = DriverManager.getConnection(url,user,password);
-            // Connection successfull
-        } catch (SQLException e){
-            e.printStackTrace();
-            // Connecton error
-        }
+        Jdbi jdbi = Jdbi.create(jdbcUrl, username, password);
+
+        jdbi.useHandle(handle -> {
+            // Tester la connexion en exécutant une requête simple
+            handle.execute("SELECT 1");
+            System.out.println(" ");
+            System.out.println(" ");
+            System.out.println(" ");
+            System.out.println(" ");
+            System.out.println(" ");
+            System.out.println("   TERRAFFILIATE");
+            System.out.println("Connexion réussie !");
+            System.out.println("   TERRAFFILIATE");
+            System.out.println(" ");
+            System.out.println(" ");
+            System.out.println(" ");
+            System.out.println(" ");
+            System.out.println("");
+        });
+    }
+
+    public Connection getConnection() throws SQLException {
+        String jdbcUrl = "jdbc:mysql://172.17.0.4:3306/affiliation";
+        String username = "root";
+        String password = "j57jQ22YsG#h";
+
+        return DriverManager.getConnection(jdbcUrl, username, password);
+    }
+
+
+
+
+
 
     }
 
-    public void createAddress(Player p){
-
-    }
-
-}

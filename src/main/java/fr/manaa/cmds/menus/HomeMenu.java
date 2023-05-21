@@ -9,6 +9,7 @@ import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.*;
 
 import java.io.*;
+import java.sql.*;
 import java.util.*;
 
 public class HomeMenu implements CommandExecutor {
@@ -28,38 +29,75 @@ public class HomeMenu implements CommandExecutor {
 
         if(sender instanceof Player){
             // Get the file players.yml
-            File configFile = new File(main.getDataFolder(), "players.yml");
-            YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
+            //File configFile = new File(main.getDataFolder(), "players.yml");
+            //YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
 
             Player p = (Player) sender;
             String player = p.getDisplayName();
-            boolean hasIp = config.getBoolean("affiliation-adress-list." + player + ".enable");
-            if (hasIp == true) {
-                Inventory enabledAffilMenu = Bukkit.createInventory(null, sizeEnabled, titleEnabled);
+            boolean hasIp = true;//config.getBoolean("affiliation-adress-list." + player + ".enable");
+            try (Connection connection = getConnection()) {
+                String selectQuery = "SELECT is_created FROM Affiliation WHERE player = ?";
+                try (PreparedStatement selectStatement = connection.prepareStatement(selectQuery)) {
+                    selectStatement.setString(1, player);
+                    try (ResultSet resultSet = selectStatement.executeQuery()) {
+                        if (resultSet.next()) {
+                            boolean isCreated = resultSet.getBoolean("is_created");
+                            if (isCreated) {
+                                // La variable is_created est déjà activée, effectue ton action ici
+                                // Autres actions à exécuter lorsque is_created est déjà sur true
+                                Inventory enabledAffilMenu = Bukkit.createInventory(null, sizeEnabled, titleEnabled);
+                                registerItem(p, enabledAffilMenu, 1, "enabledAffil");
+                                registerItem(p, enabledAffilMenu, 2, "enabledAffil");
+                                registerItem(p, enabledAffilMenu, 3, "enabledAffil");
+                                registerItem(p, enabledAffilMenu, 4, "enabledAffil");
+                                registerItem(p, enabledAffilMenu, 5, "enabledAffil");
 
-                registerItem(p, enabledAffilMenu, 1, "enabledAffil");
-                registerItem(p, enabledAffilMenu, 2, "enabledAffil");
-                registerItem(p, enabledAffilMenu, 3, "enabledAffil");
-                registerItem(p, enabledAffilMenu, 4, "enabledAffil");
-                registerItem(p, enabledAffilMenu, 5, "enabledAffil");
+                                p.openInventory(enabledAffilMenu);
+                            } else {
+                                // La variable is_created n'est pas activée, l'ajouter à la base de données
+                                String updateQuery = "UPDATE Affiliation SET is_created = true WHERE player = ?";
+                                try (PreparedStatement updateStatement = connection.prepareStatement(updateQuery)) {
+                                    updateStatement.setString(1, player);
+                                    updateStatement.executeUpdate();
+                                    System.out.println("La variable is_created a été activée avec succès");
+                                    Inventory enableAffilMenu = Bukkit.createInventory(null, size, title);
+                                    registerItem(p, enableAffilMenu, 1, "enableAffil");
+                                    registerItem(p, enableAffilMenu, 2, "enableAffil");
+                                    registerItem(p, enableAffilMenu, 3, "enableAffil");
+                                    p.openInventory(enableAffilMenu);
+                                }
+                            }
+                        } else {
+                            // Le joueur n'existe pas dans la base de données, l'ajouter avec is_created = true
+                            String insertQuery = "INSERT INTO Affiliation (is_created, player) VALUES (true, ?)";
+                            try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
+                                insertStatement.setString(1, player);
+                                insertStatement.executeUpdate();
+                                // Action exécutée lorsque le joueur est ajouté avec succès
+                                System.out.println("Le joueur a été ajouté avec succès avec is_created = true");
+                                Inventory enableAffilMenu = Bukkit.createInventory(null, size, title);
 
-                p.openInventory(enabledAffilMenu);
-            } else {
-                // OPEN AFFILIATION MENU FIRST
-                Inventory enableAffilMenu = Bukkit.createInventory(null, size, title);
+                                registerItem(p, enableAffilMenu, 1, "enableAffil");
+                                registerItem(p, enableAffilMenu, 2, "enableAffil");
+                                registerItem(p, enableAffilMenu, 3, "enableAffil");
 
-                registerItem(p, enableAffilMenu, 1, "enableAffil");
-                registerItem(p, enableAffilMenu, 2, "enableAffil");
-                registerItem(p, enableAffilMenu, 3, "enableAffil");
-
-                p.openInventory(enableAffilMenu);
+                                p.openInventory(enableAffilMenu);
+                                // Autres actions à exécuter lorsque le joueur est ajouté avec succès
+                            }
+                        }
+                    }
+                }
+            } catch (SQLException es) {
+                es.printStackTrace();
+                // Gérer l'exception selon ton besoin
             }
-            }
 
-        return false;
         }
 
-        // ITEMS
+        return false;
+    }
+
+    // ITEMS
 
     public void registerItem(Player player, Inventory menu, int itemNumber, String config){
         newItem(Objects.requireNonNull(player.getPlayer()),
@@ -114,7 +152,13 @@ public class HomeMenu implements CommandExecutor {
 
     }
 
+    public Connection getConnection() throws SQLException {
+        String jdbcUrl = "jdbc:mysql://172.17.0.4:3306/affiliation";
+        String username = "root";
+        String password = "j57jQ22YsG#h";
 
+        return DriverManager.getConnection(jdbcUrl, username, password);
     }
+}
 
 

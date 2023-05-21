@@ -21,11 +21,11 @@ public class NewPlayerAffiliated implements Listener{ private Main main;public N
         Player p = e.getPlayer();
         String serverAdress = p.getAddress().getAddress().getHostAddress();
 
-        File players = new File(main.getDataFolder(), "players.yml");
-        YamlConfiguration config = YamlConfiguration.loadConfiguration(players);
+        //File players = new File(main.getDataFolder(), "players.yml");
+        //YamlConfiguration config = YamlConfiguration.loadConfiguration(players);
 
-        File statsFile = new File(main.getDataFolder(), "stats.yml");
-        YamlConfiguration stats = YamlConfiguration.loadConfiguration(statsFile);
+        //File statsFile = new File(main.getDataFolder(), "stats.yml");
+        //YamlConfiguration stats = YamlConfiguration.loadConfiguration(statsFile);
 
         String[] parts = serverAdress.split("\\.");  // Utilisation de "\\." pour échapper le caractère "."
 
