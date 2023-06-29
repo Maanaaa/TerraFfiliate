@@ -10,7 +10,6 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         pluginInitializer.initialize();
-
     }
 
     @Override

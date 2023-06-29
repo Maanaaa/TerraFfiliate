@@ -1,7 +1,6 @@
 package fr.manaa.utils.loading;
 
 import fr.manaa.*;
-import fr.manaa.events.menus.*;
 import org.jdbi.v3.core.*;
 
 import java.io.*;
@@ -21,7 +20,7 @@ public class DatabaseManager {
 
 
     public void connect(){
-        String jdbcUrl = "jdbc:mysql://172.17.0.4:3306/affiliation";
+        String jdbcUrl = "jdbc:mysql://172.17.0.2:3306/affiliation";
         String username = "root";
         String password = "j57jQ22YsG#h";
 
@@ -47,7 +46,7 @@ public class DatabaseManager {
     }
 
     public Connection getConnection() throws SQLException {
-        String jdbcUrl = "jdbc:mysql://172.17.0.4:3306/affiliation";
+        String jdbcUrl = "jdbc:mysql://172.17.0.2:3306/affiliation";
         String username = "root";
         String password = "j57jQ22YsG#h";
 

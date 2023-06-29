@@ -1,15 +1,12 @@
-package fr.manaa.cmds.menus;
+package fr.manaa.affiliator.cmds.menus;
 
 import fr.manaa.*;
-import fr.manaa.utils.loading.*;
 import org.bukkit.*;
 import org.bukkit.command.*;
-import org.bukkit.configuration.file.*;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.*;
 
-import java.io.*;
 import java.sql.*;
 import java.util.*;
 

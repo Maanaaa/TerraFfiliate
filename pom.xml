@@ -76,6 +76,5 @@
             <artifactId>jdbi3-core</artifactId>
             <version>3.38.2</version>
         </dependency>
-
     </dependencies>
 </project>

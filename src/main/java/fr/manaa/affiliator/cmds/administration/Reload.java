@@ -1,4 +1,4 @@
-package fr.manaa.cmds.administration;
+package fr.manaa.affiliator.cmds.administration;
 
 import fr.manaa.*;
 import org.bukkit.command.*;

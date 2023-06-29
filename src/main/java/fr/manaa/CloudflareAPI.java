@@ -1,4 +1,4 @@
-package fr.manaa.utils.loading;
+package fr.manaa;
 
 
 import java.io.BufferedReader;

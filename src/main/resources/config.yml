@@ -1,3 +1,5 @@
+server:
+  serverAdress: "dev.terracraft.fr"
 database:
   host: 172.17.0.4
   port: 3306
@@ -37,7 +39,35 @@ affiliateEnabled:
     - " &7&l• Ton adresse d'affiliation : &e&n%playerip%.terracraft.fr"
     - " "
     - "&7&n                             "
-menus:
+onJoinWithAffiliateAdress:
+  messages:
+    connectedSuccessfullyWith:
+      - "&7&n                             "
+      - " "
+      - " "
+      - " "
+      - "    &e&l⚡ &b&lPLAY.TERRACRAFT.FR &e&l⚡ "
+      - " "
+      - "&e&l✪ &6&lBienvenue sur TerraCraft ! &e&l✪"
+      - " "
+      - "&7➤ &bTu es connecté avec l'adresse d'affiliation :"
+      - "   &e%affiliateAdress%.terracraft.fr"
+      - " "
+      - "&7➤ &bTerraCraft te remercie pour ton soutien !"
+      - " "
+      - "&7➤ &bN'hésite pas à créer ton lien d'affiliation"
+      - "   &bet à le partager avec tes amis !"
+      - " "
+      - "&7&l⚠ &6&lAttention : &7&l⚠"
+      - "   &eLes règles du serveur s'appliquent également"
+      - "   &eà tes amis parrainés. Assure-toi qu'ils les"
+      - "   &eles respectent. Bon jeu !"
+      - "     &c&l❤ &b&lTERRACRAFT.FR &c&l❤  "
+      - " "
+      - " "
+      - " "
+      - "&7&n                             "
+
   enableAffil: # Menu to activate the affiliate system
     title: "    &e&l⚡ &bPLAY.TERRACRAFT.FR &e⚡ "
     size: 27
@@ -149,13 +179,13 @@ menus:
         lore:
           - "&6&l%player%"
           - " "
-          - "&7➤ &bVous avez parrainé &f: &646 joueurs &b!"
-          - "&bVous êtes &e&l1 er &r&bdans le classement !"
+          - "&7➤ &bVous avez parrainé &f: &6%affiliateNumber% joueurs &b!"
+          - "&bVous êtes &e&l%top% er &r&bdans le classement !"
           - "&bContinuez dans cette lancée pour"
           - "&bremporter &e&l20 euros &r&b!"
           - ""
           - "&7➤ &bVous avez remporté(e)"
-          - "&ble concours &e&l3 &bfois !"
+          - "&ble concours &e&l%winner% &bfois !"
           - " "
           - "    &6&k! &r&e20€ À GAGNER CHAQUE MOIS &6&k!"
           - "       &7>> &e%playerip%.terracraft.fr &7<<"

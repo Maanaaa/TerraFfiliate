@@ -1,4 +1,4 @@
-package fr.manaa.events.menus.affiliation;
+package fr.manaa.affiliator.events.menus.affiliation;
 
 import fr.manaa.*;
 import org.bukkit.*;
