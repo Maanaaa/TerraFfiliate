@@ -1,11 +1,16 @@
 package fr.manaa.affiliate.events;
 
 import fr.manaa.*;
-import org.bukkit.entity.*;
+
+import org.bukkit.*;
 import org.bukkit.event.*;
 import org.bukkit.event.player.*;
+import org.bukkit.entity.Player;
 
-import java.net.http.*;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+
+import java.net.*;
 import java.util.*;
 
 public class JoinWithAffiliateAdress implements Listener {
@@ -14,19 +19,20 @@ public class JoinWithAffiliateAdress implements Listener {
         this.main = main;
     }
 
-// onJoinWithAffiliateAdress.messages.connectedSuccessfullyWith
+    String serverDomain = "dev.terracraft.fr";
+        //for(String messages : main.getConfig().getStringList("onJoinWithAffiliateAdress.messages.connectedSuccessfullyWith")) {
+        //assert serverHostname != null;
+        //event.getPlayer().sendMessage(messages.replace("&","§").replace("%affiliateAdress%", serverHostname).replace("&","§"));//replace("%affiliator%",affiliatorName)
+    //}
     @EventHandler
-    public void onJoin(PlayerLoginEvent e){
-        Player p = e.getPlayer();
-        String connectionAdress = Objects.requireNonNull(p.getAddress()).getAddress().getHostAddress();
-        //String affiliatorName = null;
+    public void onPlayerJoin(PlayerJoinEvent event) {
 
-        if(!(Objects.equals(connectionAdress, main.getConfig().getString("server.serverAdress")))){ // Si l'adresse n'est pas l'adresse du serveur
-            for(String messages : main.getConfig().getStringList("onJoinWithAffiliateAdress.messages.connectedSuccessfullyWith")) {
-                p.sendMessage(messages.replace("&","§").replace("%affiliateAdress%", connectionAdress).replace("&","§"));//replace("%affiliator%",affiliatorName)
-            }
-        }
+        Player p = event.getPlayer();
+
+        String serverAddress = Objects.requireNonNull(event.getPlayer().getAddress()).getHostName();
+        System.out.println("Server Address: " + serverAddress);
+
+        p.sendMessage("§6Vous êtes connectés avec l'addresse §7"+serverAddress);
 
     }
-
 }

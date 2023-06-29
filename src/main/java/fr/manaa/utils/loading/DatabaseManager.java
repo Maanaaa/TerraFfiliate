@@ -20,10 +20,17 @@ public class DatabaseManager {
 
 
     public void connect(){
-        String jdbcUrl = "jdbc:mysql://172.17.0.2:3306/affiliation";
-        String username = "root";
-        String password = "j57jQ22YsG#h";
+        String host = main.getConfig().getString("database.host");
+        int port = main.getConfig().getInt("database.port");
+        String database = main.getConfig().getString("database.database");
 
+        String jdbcUrl = "jdbc:mysql://" + host + ":" + port + "/" + database;
+
+        String username = main.getConfig().getString("database.user");
+        String password = main.getConfig().getString("database.password");
+
+        assert username != null;
+        assert password != null;
         Jdbi jdbi = Jdbi.create(jdbcUrl, username, password);
 
         jdbi.useHandle(handle -> {
@@ -46,17 +53,19 @@ public class DatabaseManager {
     }
 
     public Connection getConnection() throws SQLException {
-        String jdbcUrl = "jdbc:mysql://172.17.0.2:3306/affiliation";
-        String username = "root";
-        String password = "j57jQ22YsG#h";
+        String host = main.getConfig().getString("database.host");
+        int port = main.getConfig().getInt("database.port");
+        String database = main.getConfig().getString("database.database");
+
+        String jdbcUrl = "jdbc:mysql://" + host + ":" + port + "/" + database;
+
+        String username = main.getConfig().getString("database.user");
+        String password = main.getConfig().getString("database.password");
+
+        assert username != null;
+        assert password != null;
+        Jdbi jdbi = Jdbi.create(jdbcUrl, username, password);
 
         return DriverManager.getConnection(jdbcUrl, username, password);
     }
-
-
-
-
-
-
     }
-

@@ -8,6 +8,7 @@ import fr.manaa.affiliator.cmds.menus.*;
 import fr.manaa.affiliator.events.menus.affiliation.*;
 import org.bukkit.configuration.file.FileConfiguration;
 
+
 import java.io.File;
 
 import java.util.*;
@@ -16,7 +17,7 @@ public class PluginInitializer {
 
     private Main main;
     private File affilConfigFile;
-    private FileConfiguration affilConfig;
+    private FileConfiguration affilCo1nfig;
 
     public PluginInitializer(Main main) {
         this.main = main;

@@ -1,6 +1,7 @@
 package fr.manaa.affiliator.events.menus.affiliation;
 
 import fr.manaa.*;
+import fr.manaa.utils.loading.*;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.*;
@@ -68,12 +69,8 @@ public class AffiliationMenuOpened implements Listener {
 
     }
 
-    public Connection getConnection() throws SQLException {
-        String jdbcUrl = "jdbc:mysql://172.17.0.2:3306/affiliation";
-        String username = "root";
-        String password = "j57jQ22YsG#h";
 
-        return DriverManager.getConnection(jdbcUrl, username, password);
-    }
+
+
 
 }
