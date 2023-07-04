@@ -35,7 +35,9 @@ public class PluginInitializer {
         main.getServer().getPluginManager().registerEvents(new JoinWithAffiliateAdress(main), main);
 
         // DataBase Connection
-        DatabaseManager databaseManager = new DatabaseManager((this.main));
+        DatabaseManager databaseManager = new DatabaseManager(main);
+        databaseManager.createTables();
+        databaseManager.createIndexes();
         databaseManager.connect();
     }
 }
