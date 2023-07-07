@@ -1,0 +1,12 @@
+location: world:98.429:115.000:229.603
+enabled: true
+display-range: 48
+update-range: 48
+update-interval: 20
+facing: 0.0
+down-origin: false
+pages:
+- lines:
+  - content: '&bHOLO 3 DIRECTIONS'
+    height: 0.3
+  actions: {}

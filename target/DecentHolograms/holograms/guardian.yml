@@ -1,0 +1,12 @@
+location: world:105.644:114.000:216.237
+enabled: true
+display-range: 48
+update-range: 48
+update-interval: 20
+facing: 0.0
+down-origin: false
+pages:
+- lines:
+  - content: '#ENTITY: GUARDIAN'
+    height: 1.0000000238418578
+  actions: {}

@@ -136,9 +136,6 @@ menu:
         event: create_affiliate_adress
         slots:
           - 13
-
-
-
   enabledAffil: # Menu who is shown when player already have an affiliate adress
     title: "    &e&l⚡ &bPLAY.TERRACRAFT.FR &e⚡ "
     size: 27

@@ -1,0 +1,12 @@
+location: world:110.965:113.000:219.727
+enabled: true
+display-range: 48
+update-range: 48
+update-interval: 20
+facing: 0.0
+down-origin: false
+pages:
+- lines:
+  - content: '#ENTITY: SPIDER'
+    height: 1.049999976158142
+  actions: {}

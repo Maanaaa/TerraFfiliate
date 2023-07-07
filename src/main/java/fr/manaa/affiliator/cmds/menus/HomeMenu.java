@@ -21,11 +21,11 @@ public class HomeMenu implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-        int size = main.getConfig().getInt("menus.enableAffil.size");
-        String title = Objects.requireNonNull(main.getConfig().getString("menus.enabledAffil.title")).replace("&", "§");
+        int size = main.getConfig().getInt("menu.enableAffil.size");
+        String title = Objects.requireNonNull(main.getConfig().getString("menu.enabledAffil.title")).replace("&", "§");
 
-        int sizeEnabled = main.getConfig().getInt("menus.enableAffil.size");
-        String titleEnabled = Objects.requireNonNull(main.getConfig().getString("menus.enabledAffil.title")).replace("&", "§");
+        int sizeEnabled = main.getConfig().getInt("menu.enableAffil.size");
+        String titleEnabled = Objects.requireNonNull(main.getConfig().getString("menu.enabledAffil.title")).replace("&", "§");
 
         if (sender instanceof Player) {
 
@@ -79,7 +79,7 @@ public class HomeMenu implements CommandExecutor {
                             String affiliationAddress = generateUniqueAffiliationAddress(player, connection);
                             System.out.println("Adresse d'affiliation créée : " + affiliationAddress);
 
-                            String adress = "163.5.143.62";
+                            String adress = "141.94.97.170";
 
                             try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
                                 insertStatement.setString(1, player);

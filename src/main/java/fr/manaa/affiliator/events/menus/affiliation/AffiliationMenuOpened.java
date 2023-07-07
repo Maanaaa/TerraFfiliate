@@ -31,11 +31,11 @@ public class AffiliationMenuOpened implements Listener {
         if (clickedItem == null) {
             return;
         }
-        String title = Objects.requireNonNull(main.getConfig().getString("menus.enableAffil.title")).replace("&", "§");
+        String title = Objects.requireNonNull(main.getConfig().getString("menu.enableAffil.title")).replace("&", "§");
         Inventory inventory = e.getInventory();
-        if(e.getView().getTitle().equals(main.getConfig().getString("menus.enableAffil.title").replace("&","§"))){
+        if(e.getView().getTitle().equals(Objects.requireNonNull(main.getConfig().getString("menu.enableAffil.title")).replace("&","§"))){
             e.setCancelled(true);
-            if(clickedItem.getItemMeta().getDisplayName().equals(main.getConfig().getString("menus.enableAffil.items.3.display-name").replace("&","§"))) {
+            if(Objects.requireNonNull(clickedItem.getItemMeta()).getDisplayName().equals(main.getConfig().getString("menu.enableAffil.items.3.display-name").replace("&","§"))) {
                 p.updateInventory();
                 p.closeInventory();
 
@@ -50,7 +50,7 @@ public class AffiliationMenuOpened implements Listener {
                 }
                 if (main.getConfig().getBoolean("affiliateEnabled.fireworks.enable")){
                     Location location = p.getLocation();
-                    Firework firework = (Firework) location.getWorld().spawnEntity(location, EntityType.FIREWORK);
+                    Firework firework = (Firework) Objects.requireNonNull(location.getWorld()).spawnEntity(location, EntityType.FIREWORK);
                     FireworkMeta meta = firework.getFireworkMeta();
                     String color1 = main.getConfig().getString("affiliateEnabled.fireworks.fireworks.color-1");
                     String color2 = main.getConfig().getString("affiliateEnabled.fireworks.fireworks.color-2");

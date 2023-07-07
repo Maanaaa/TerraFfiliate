@@ -1,0 +1,24 @@
+location: world:98.527:137.000:233.586
+enabled: true
+display-range: 48
+update-range: 48
+update-interval: 20
+facing: 0.0
+down-origin: false
+pages:
+- lines:
+  - content: '#ICON:DIAMOND'
+    height: 0.6
+  - content: '&e&l⚡ &b&lBienvenue sur TerraCraft ! &e&l⚡'
+    height: 0.3
+  - content: '&7➤ &ePour toi, on a dépliés'
+    height: 0.3
+  - content: '&ele tapis rouge, suis le !'
+    height: 0.3
+  - content: ''
+    height: 0.3
+  - content: '&b>> discord.terracraft.fr <<'
+    height: 0.3
+  - content: '&b>> Parraine tes amis avec &f/affil &b! <<'
+    height: 0.3
+  actions: {}
