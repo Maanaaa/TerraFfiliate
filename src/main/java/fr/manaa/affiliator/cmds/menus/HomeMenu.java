@@ -79,7 +79,7 @@ public class HomeMenu implements CommandExecutor {
                             String affiliationAddress = generateUniqueAffiliationAddress(player, connection);
                             System.out.println("Adresse d'affiliation créée : " + affiliationAddress);
 
-                            String adress = "141.94.97.170";
+                            String adress = "154.51.39.202";
 
                             try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
                                 insertStatement.setString(1, player);
@@ -146,10 +146,10 @@ public class HomeMenu implements CommandExecutor {
     public void registerItem(Player player, Inventory menu, int itemNumber, String config){
         newItem(Objects.requireNonNull(player.getPlayer()),
                 menu,
-                main.getConfig().getString("menus."+config+".items."+itemNumber+".material"),
-                Objects.requireNonNull(main.getConfig().getString("menus."+config+".items."+itemNumber+".display-name")).replace("&", "§"),
-                main.getConfig().getStringList("menus."+config+".items."+itemNumber+".lore"),
-                main.getConfig().getIntegerList("menus."+config+".items."+itemNumber+".slots"));
+                Objects.requireNonNull(main.getConfig().getString("menu." + config + ".items." + itemNumber + ".material")),
+                Objects.requireNonNull(main.getConfig().getString("menu."+config+".items."+itemNumber+".display-name")).replace("&", "§").replace("%affiliateNumber%","getAffiliatedPlayerCount(player)"),
+                main.getConfig().getStringList("menu."+config+".items."+itemNumber+".lore"),
+                main.getConfig().getIntegerList("menu."+config+".items."+itemNumber+".slots"));
     }
 
     public void newItem(Player player, Inventory inventory, String material, String name, List<String> description, List<Integer> slots) {
@@ -162,8 +162,9 @@ public class HomeMenu implements CommandExecutor {
             itemMeta.setDisplayName(name);
 
             String playerip = player.getDisplayName().replace("_","").toLowerCase();
+
             for(int i = 0;i < description.size(); i++){
-                description.set(i, description.get(i).replace("&","§").replace("%playerip%", playerip).replace("%player%",player.getDisplayName()));
+                description.set(i, description.get(i).replace("&","§").replace("%playerip%", playerip).replace("%player%",player.getDisplayName().replace("%affiliateNumber%","getAffiliatedPlayerCount(player)")));
             }
 
             itemMeta.setLore(description);
@@ -182,7 +183,7 @@ public class HomeMenu implements CommandExecutor {
 
             String playerip = player.getDisplayName().replace("_","").toLowerCase();
             for(int i = 0;i < description.size(); i++){
-                description.set(i, description.get(i).replace("&","§").replace("%playerip%", playerip).replace("%player%",player.getDisplayName()));
+                description.set(i, description.get(i).replace("&","§").replace("%playerip%", playerip).replace("%player%",player.getDisplayName().replace("%affiliateNumber%","getAffiliatedPlayerCount(player)")));
             }
 
             itemMeta.setLore(description);
@@ -194,6 +195,23 @@ public class HomeMenu implements CommandExecutor {
         }
 
 
+    }
+
+    public int getAffiliatedPlayerCount(Player playerName) {
+        try (Connection connection = getConnection()) {
+            String query = "SELECT affiliated FROM affiliation WHERE player = ?";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setString(1, playerName.toString());
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        return resultSet.getInt("affiliated");
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return 0; // Retourne 0 si le joueur n'est pas trouvé ou s'il y a une erreur
     }
 
     public Connection getConnection() throws SQLException {

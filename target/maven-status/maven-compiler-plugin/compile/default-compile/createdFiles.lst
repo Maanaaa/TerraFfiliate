@@ -1,8 +1,8 @@
 fr\manaa\affiliator\cmds\administration\Reload.class
+fr\manaa\CloudflareAPI.class
 fr\manaa\affiliate\events\JoinWithAffiliateAdress.class
 fr\manaa\affiliator\cmds\menus\HomeMenu.class
 fr\manaa\utils\loading\DatabaseManager.class
 fr\manaa\affiliator\events\menus\affiliation\AffiliationMenuOpened.class
 fr\manaa\utils\loading\PluginInitializer.class
 fr\manaa\Main.class
-fr\manaa\CloudflareAPI.class

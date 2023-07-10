@@ -65,7 +65,7 @@ public class CloudflareAPI {
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
 
-            String srvRequestBody = "{\"type\": \"SRV\", \"data\": {\"service\": \"_minecraft\", \"proto\": \"_tcp\", \"name\": \""+subdomain+".terracraft.fr\", \"priority\": 1, \"weight\": 5, \"port\": 25555, \"target\": \""+subdomain+".terracraft.fr\"}}";
+            String srvRequestBody = "{\"type\": \"SRV\", \"data\": {\"service\": \"_minecraft\", \"proto\": \"_tcp\", \"name\": \""+subdomain+".terracraft.fr\", \"priority\": 1, \"weight\": 5, \"port\": 2021, \"target\": \""+subdomain+".terracraft.fr\"}}";
             byte[] srvRequestBodyBytes = srvRequestBody.getBytes(StandardCharsets.UTF_8);
 
             try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {
@@ -87,4 +87,3 @@ public class CloudflareAPI {
     }
 
 }
-

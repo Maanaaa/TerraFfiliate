@@ -1,0 +1,6 @@
+name: Bungee-TerraFfiliate
+version: '1.0-SNAPSHOT'
+main: fr.manaa.bungeecord.Bungee
+softdepend: [TerraFfilliate]
+author: _Maana
+description: Minecraft Bungeecord plugin of affiliation plugin for TerraCraft server

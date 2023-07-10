@@ -1,17 +1,22 @@
 server:
   serverAdress: "dev.terracraft.fr"
 database:
-  host: "141.94.97.17"
-  port: 3306
+  host: "141.94.97.170"
+  port: 5433
   database: "affiliation"
-  user: "root"
-  password: "j57jQ22YsG#h"
+  user: "affil_user"
+  password: "dqkzmldkqzopdkqozdkqzd"
+cloudflare:
+  serverIP: "141.94.97.170"
+  domain: "terracraft.fr"
 globalmessages:
   noPerm: "&cErreur, vous n'avez pas la permission d'effectuer cette commande !"
   notAPlayer: "&cErreur, vous n'êtes pas un joueur."
   unknownCommand: "&cErreur, cette commande n'existe pas !"
   noPlayer: "&cErreur, le joueur ciblé semble être hors ligne !"
   reload: "&f>>> &e&lTerraFfiliate a été mis à jour avec succès !"
+competition:
+  cashPrize: 20
 onJoinWithAffiliateAdress:
   messages:
     connectedSuccessfullyWith:
@@ -51,22 +56,6 @@ affiliateEnabled:
       color-1: Color.BLUE
       color-2: Color.GRAY
       color-3: Color.ORANGE
-  message:
-    - "&7&n                             "
-    - " "
-    - " "
-    - " "
-    - "    &e&l⚡ &b&lPLAY.TERRACRAFT.FR &e&l⚡ "
-    - " "
-    - "&e&l✪ &6&lFélicitations ! &e&l✪"
-    - "   &7➤ &bTu as créé ton lien de parrainage sur &lTerraCraft.FR &r&b!"
-    - " "
-    - "&k&l!! &6&lRemporte &r&e&n20€ par mois &r&6&len ayant "
-    - "&6&lle plus de joueurs parrainés de tout le serveur ! &k&l!!"
-    - " "
-    - " &7&l• Ton adresse d'affiliation : &e&n%playerip%.terracraft.fr"
-    - " "
-    - "&7&n                             "
 menu:
   enableAffil: # Menu to activate the affiliate system
     title: "    &e&l⚡ &bPLAY.TERRACRAFT.FR &e⚡ "

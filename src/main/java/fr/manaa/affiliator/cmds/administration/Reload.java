@@ -13,8 +13,12 @@ public class Reload implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
-
+        if(label.equalsIgnoreCase("reload")){
+            if(sender.hasPermission("affiliation.reload")){
+                main.reloadConfig();
+                sender.sendMessage("§7[§bAffiliation§7] §7La configuration a été rechargée !");
+            }
+        }
         return false;
     }
 }

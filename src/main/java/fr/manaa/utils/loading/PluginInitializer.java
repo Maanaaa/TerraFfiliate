@@ -29,8 +29,8 @@ public class PluginInitializer {
         // CREATION OF CONFIG.YML FILE
         this.main.saveDefaultConfig();
 
-        Objects.requireNonNull(this.main.getCommand("affil")).setExecutor(new HomeMenu(main));
-        Objects.requireNonNull(this.main.getCommand("affilreload")).setExecutor(new Reload(main));
+        Objects.requireNonNull(this.main.getCommand("affiliation")).setExecutor(new HomeMenu(main));
+        //Objects.requireNonNull(this.main.getCommand("affiliation")).setExecutor(new Reload(main));
         main.getServer().getPluginManager().registerEvents(new AffiliationMenuOpened(main), main);
         main.getServer().getPluginManager().registerEvents(new JoinWithAffiliateAdress(main), main);
 

@@ -29,10 +29,10 @@ public class DatabaseManager {
                 Statement statement = connection.createStatement();
                 String sql = "CREATE TABLE `affiliation` (" +
                         "`id` int(11) NOT NULL AUTO_INCREMENT," +
-                        "`is_created` tinyint(1) DEFAULT NULL COMMENT ' true/false si l''addresse est crée ou non'," +
+                        "`is_created` tinyint(1) DEFAULT NULL COMMENT 'true/false si l''addresse est crée ou non'," +
                         "`player` text NOT NULL COMMENT 'propriétaire de l''addresse'," +
                         "`affiliation_address` text DEFAULT NULL COMMENT 'adresse d''affiliation'," +
-                        "`affilied` int(11) DEFAULT NULL COMMENT 'nombre de joueurs affiliés'," +
+                        "`affiliated` int(11) DEFAULT NULL COMMENT 'nombre de joueurs affiliés'," +
                         "`winner` int(11) DEFAULT NULL COMMENT 'nombre de fois où le joueur a gagné le concours'," +
                         "PRIMARY KEY (`id`)" +
                         ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;";
@@ -48,6 +48,9 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+
+
     }
 
     public void createIndexes() {
