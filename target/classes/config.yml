@@ -2,6 +2,24 @@
 #--------- T E R R A    F F I L L I A T E     CONFIG---------
 #------------------------------------------------------------
 #         -------------------------------------
+
+# PERMISSIONS :
+#               -
+#               -
+#               -
+#               -
+#               -
+#               -
+# COMMANDS :
+#               - /affiliation --> main command
+#               - /affiliation view <player> --> see player stats
+#               - /affiliation reload --> reload this configuration
+#               - /affiliation reset --> reset database
+#               - /affiliation winner <player> --> set the winner
+
+
+
+
 #-----------                                 ----------------
 #------------------------------------------------------------
 #--------    DataBase and CloudFlare config     -------------
@@ -17,6 +35,8 @@ database: # MySQL Database
 cloudflare: # !!!!! CONFIDENTIAL !!!!!
   #IP Adress to redirect players
   serverIP:
+  #Minecraft Server port
+  port: #Exemple : 25565
   domain: #Exemple : terracraft.fr
   #CloudFlare API Email (see https://developers.cloudflare.com/api/)
   API_EMAIL:
@@ -24,7 +44,7 @@ cloudflare: # !!!!! CONFIDENTIAL !!!!!
   API_KEY:
   #CloudFlare Zone ID (see (see https://developers.cloudflare.com/api/)
   ZONE_ID:
-
+operator: # List of player who are op (to execute /affil reset command to reset database)
 
 
   #--------- T E R R A    F F I L L I A T E     CONFIG---------

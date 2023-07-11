@@ -33,14 +33,18 @@ public class DatabaseManager {
                         "`player` text NOT NULL COMMENT 'propriétaire de l''addresse'," +
                         "`affiliation_address` text DEFAULT NULL COMMENT 'adresse d''affiliation'," +
                         "`affiliated` int(11) DEFAULT NULL COMMENT 'nombre de joueurs affiliés'," +
-                        "`winner` int(11) DEFAULT NULL COMMENT 'nombre de fois où le joueur a gagné le concours'," +
+                        "PRIMARY KEY (`id`)" +
+                        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;";
+                String sql2 = "CREATE TABLE `winners` (" +
+                        "`id` int(11) NOT NULL AUTO_INCREMENT," +
+                        "`player` text NOT NULL COMMENT 'propriétaire de l''addresse'," +
+                        "`winning_number` int(11) DEFAULT NULL COMMENT 'nombre de joueurs affiliés'," +
                         "PRIMARY KEY (`id`)" +
                         ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;";
                 statement.executeUpdate(sql);
+                statement.executeUpdate(sql2);
                 statement.close();
-                System.out.println("Table `affiliation` créée avec succès !");
-            } else {
-                System.out.println("La table `affiliation` existe déjà !");
+                System.out.println("Les tables ont été créés avec succès");
             }
 
             tableResultSet.close();

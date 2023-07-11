@@ -2,8 +2,7 @@ package fr.manaa.utils.loading;
 
 import com.google.gson.*;
 import fr.manaa.*;
-import fr.manaa.affiliate.events.*;
-import fr.manaa.affiliator.cmds.menus.*;
+import fr.manaa.affiliator.cmds.all.*;
 import fr.manaa.affiliator.events.menus.affiliation.*;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -28,10 +27,10 @@ public class PluginInitializer {
         // CREATION OF CONFIG.YML FILE
         this.main.saveDefaultConfig();
 
+
         Objects.requireNonNull(this.main.getCommand("affiliation")).setExecutor(new Global(main));
         //Objects.requireNonNull(this.main.getCommand("affiliation")).setExecutor(new Reload(main));
         main.getServer().getPluginManager().registerEvents(new AffiliationMenuOpened(main), main);
-        main.getServer().getPluginManager().registerEvents(new JoinWithAffiliateAdress(main), main);
 
         // DataBase Connection
         DatabaseManager databaseManager = new DatabaseManager(main);
@@ -46,4 +45,6 @@ public class PluginInitializer {
         CloudflareAPI cloudflareApi = new CloudflareAPI(this.main, API_EMAIL, API_KEY, ZONE_ID);
 
     }
+
+
 }

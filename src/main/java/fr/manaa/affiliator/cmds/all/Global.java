@@ -1,4 +1,4 @@
-package fr.manaa.affiliator.cmds.menus;
+package fr.manaa.affiliator.cmds.all;
 
 import fr.manaa.*;
 import org.bukkit.*;
@@ -8,9 +8,9 @@ import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.*;
 import org.jdbi.v3.core.*;
 
+import java.io.*;
 import java.sql.*;
 import java.util.*;
-import java.util.stream.*;
 
 public class Global implements CommandExecutor {
     private Main main;
@@ -75,7 +75,7 @@ public class Global implements CommandExecutor {
                             } else {
                                 // Le joueur n'existe pas dans la base de données, l'ajouter avec is_created = true
                                 String insertQuery = "INSERT INTO affiliation (is_created, player, affiliation_address) VALUES (true, ?, ?)";
-
+                                String insertQuery2 = "INSERT INTO winners (player, winning_number) VALUES (?, ?)";
                                 String playerEdited = player.replace("_", "").toLowerCase();
 
                                 // Vérifier et générer un sous-domaine unique
@@ -84,7 +84,7 @@ public class Global implements CommandExecutor {
 
                                 String adress = "154.51.39.202";
 
-                                try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
+                                try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery))  {
                                     insertStatement.setString(1, player);
                                     insertStatement.setString(2, affiliationAddress);
                                     insertStatement.executeUpdate();
@@ -99,6 +99,17 @@ public class Global implements CommandExecutor {
                                     p.openInventory(enableAffilMenu);
 
                                     CloudflareAPI.createSubdomain(playerEdited, adress);
+                                } catch (SQLException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                // ADD PLAYER TO WINNERS TABLE
+                                try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery2))  {
+                                    insertStatement.setString(1, player);
+                                    insertStatement.setInt(2, 0);
+                                    insertStatement.executeUpdate();
+
+                                    // Action exécutée lorsque le joueur est ajouté avec succès
+                                    System.out.println("Le joueur a été ajouté avec succès à la table 'winners'");
                                 } catch (SQLException e) {
                                     throw new RuntimeException(e);
                                 }
@@ -117,6 +128,7 @@ public class Global implements CommandExecutor {
                 main.reloadConfig();
                 sender.sendMessage("§6Configuration de TerraFfiliate rechargée !");
             }
+            // ----------
             // STATS VIEW COMMAND
         }  else if (args[0].equalsIgnoreCase("view")) {
             if (args.length == 2) {
@@ -142,8 +154,6 @@ public class Global implements CommandExecutor {
                                                 "§7➤ §bParcours remportés §f: §e"+String.valueOf(getWinnerCount(targetPlayer.getName()))+"\n"+
                                                 "§7➤ §bClassement §f: §7§e"+playerRank+"\n" +
                                                 "§7§n                             \"");
-                                        //description.replaceAll(s -> s.replace("&", "§").replace("%playerip%", playerip).replace("%player%", targetPlayer.getDisplayName().replace("%afNB%", String.valueOf(getAffiliatedPlayerCount(targetPlayer.getName())))));
-
                                     }
                                 }
                         } catch (SQLException ex) {
@@ -154,22 +164,54 @@ public class Global implements CommandExecutor {
                         }
                 }
             }
+            // ----------
             // SET WINNER COMMAND
         } else if(args[0].equalsIgnoreCase("winner")){
             if(args.length == 2){
                 if(sender.hasPermission("affiliation.winner")){
                     String targetName = args[1];
                     Player targetPlayer = Bukkit.getPlayer(targetName);
-
+                    try {
+                        Connection connection = getConnection();
+                        String sql = "UPDATE `winners` SET `winning_number` = `winning_number` + 1 WHERE `player` = ?";
+                        PreparedStatement statement = connection.prepareStatement(sql);
+                        statement.setString(1, targetName);
+                        statement.executeUpdate();
+                        statement.close();
+                        connection.close();
+                        Bukkit.getServer().broadcastMessage("\n \n    §e§l⚡ §b§lPLAY.TERRACRAFT.FR §e§l⚡ \n§7➤ §bLe joueur §7"+targetName+" §ba remporté le concours d'affiliation mensuel ! Félicitations !\n \n");
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
+            // ---------
+            // RESET DATABASE COMMAND
+        }else if(args[0].equalsIgnoreCase("reset")){
+            List<String> operators = main.getConfig().getStringList("operator");
+            if((!(sender instanceof Player)) || operators.contains(((Player) sender).getDisplayName())) {
+                resetDataBase();
+                sender.sendMessage("§cVous avez réinitialisé la base de donnée !");
+                Bukkit.getServer().broadcastMessage("§7➤ §cLe système d'affiliation a été réinitialisé");
+            }else{sender.sendMessage("§cErreur, vous ne faites pas partie de la liste des opérateurs.");}
         }
-
-
-
         return false;
     }
 
+    public void resetDataBase() {
+        try {
+            Connection connection = getConnection();
+            String sql = "DELETE FROM `affiliation`";
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(sql);
+            statement.close();
+            connection.close();
+            System.out.println("Base de donnée réinitialisée");
+            System.out.println("Tous les joueurs ont été supprimés de la table `affiliation`");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     // Vérifie et génère un sous-domaine unique
     private String generateUniqueAffiliationAddress(String player, Connection connection) throws SQLException {
         String playerEdited = player.replace("_", "").toLowerCase();
@@ -256,12 +298,12 @@ public class Global implements CommandExecutor {
 
     public int getWinnerCount(String playerName) {
         try (Connection connection = getConnection()) {
-            String query = "SELECT winner FROM affiliation WHERE player = ?";
+            String query = "SELECT winning_number FROM winners WHERE player = ?";
             try (PreparedStatement statement = connection.prepareStatement(query)) {
                 statement.setString(1, playerName);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
-                        return resultSet.getInt("winner");
+                        return resultSet.getInt("winning_number");
                     }
                 }
             }
