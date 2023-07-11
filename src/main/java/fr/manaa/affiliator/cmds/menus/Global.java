@@ -10,11 +10,12 @@ import org.jdbi.v3.core.*;
 
 import java.sql.*;
 import java.util.*;
+import java.util.stream.*;
 
-public class HomeMenu implements CommandExecutor {
+public class Global implements CommandExecutor {
     private Main main;
 
-    public HomeMenu(Main main) {
+    public Global(Main main) {
         this.main = main;
     }
 
@@ -115,6 +116,42 @@ public class HomeMenu implements CommandExecutor {
                 main.reloadConfig();
                 sender.sendMessage("§6Configuration de TerraFfiliate rechargée !");
             }
+        }  else if (args[0].equalsIgnoreCase("view")) {
+            if (args.length == 2) {
+                if (sender.hasPermission("affiliation.view")) {
+                    String targetName = args[1];
+                    // Vérifier si le joueur cible est connecté
+                    Player targetPlayer = Bukkit.getPlayer(targetName);
+                        try (Connection connection = getConnection()) {
+                            String query = "SELECT affiliated FROM affiliation WHERE player = ?";
+                            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                                statement.setString(1, targetPlayer.getDisplayName());
+                                try (ResultSet resultSet = statement.executeQuery()) {
+                                    if (resultSet.next()) {
+                                        int affiliatedPlayerCount = resultSet.getInt("affiliated");
+                                        // Afficher les statistiques
+                                        List<String> description = main.getConfig().getStringList("competition.view.message");
+                                        String playerip = targetPlayer.getDisplayName().replace("_", "").toLowerCase();
+                                        int playerRank = getAffiliationRank(targetPlayer.getDisplayName());
+                                        sender.sendMessage("\"§7§n                             \"\n" +
+                                                "§6Statistiques §7"+ targetPlayer.getName()+"\n" +
+                                                "§7➤ §bAdresse §f: §7"+playerip+".terracraft.fr\n" +
+                                                "§7➤ §bNombre d'affiliés §f: §e"+String.valueOf(getAffiliatedPlayerCount(targetPlayer.getName()))+"\n" +
+                                                "§7➤ §bParcours remportés §f: §e"+String.valueOf(getWinnerCount(targetPlayer.getName()))+"\n"+
+                                                "§7➤ §bClassement §f: §7§e"+playerRank+"\n" +
+                                                "§7§n                             \"");
+                                        //description.replaceAll(s -> s.replace("&", "§").replace("%playerip%", playerip).replace("%player%", targetPlayer.getDisplayName().replace("%afNB%", String.valueOf(getAffiliatedPlayerCount(targetPlayer.getName())))));
+
+                                    }
+                                }
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+                    } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                }
+            }
         }
 
         return false;
@@ -157,67 +194,61 @@ public class HomeMenu implements CommandExecutor {
         newItem(Objects.requireNonNull(player.getPlayer()),
                 menu,
                 Objects.requireNonNull(main.getConfig().getString("menu." + config + ".items." + itemNumber + ".material")),
-                Objects.requireNonNull(main.getConfig().getString("menu."+config+".items."+itemNumber+".display-name")).replace("&", "§").replace("%afNB%", String.valueOf(getAffiliatedPlayerCount(player))),
+                Objects.requireNonNull(Objects.requireNonNull(main.getConfig().getString("menu." + config + ".items." + itemNumber + ".display-name")).replace("&", "§").replace("%afNB%", "10")),
                 main.getConfig().getStringList("menu."+config+".items."+itemNumber+".lore"),
                 main.getConfig().getIntegerList("menu."+config+".items."+itemNumber+".slots"));
     }
 
     public void newItem(Player player, Inventory inventory, String material, String name, List<String> description, List<Integer> slots) {
-        // SI ON VEUT DONNER LA TËTE DU JOUEUR
-        if(material.equals("PLAYER_HEAD:%player%")){
-            ItemStack item = new ItemStack(Material.PLAYER_HEAD);
-            SkullMeta itemMeta = (SkullMeta) item.getItemMeta();
-            assert itemMeta != null;
-            itemMeta.setOwningPlayer(player);
-            itemMeta.setDisplayName(name);
-            String affiliateNumber = " "+getAffiliatedPlayerCount(player);
-            String playerip = player.getDisplayName().replace("_","").toLowerCase();
+        ItemStack item;
+        ItemMeta itemMeta;
 
+        if (material.equals("PLAYER_HEAD:%player%")) {
+            item = new ItemStack(Material.PLAYER_HEAD);
+            itemMeta = item.getItemMeta();
+            assert itemMeta instanceof SkullMeta;
+            SkullMeta skullMeta = (SkullMeta) itemMeta;
 
-
-            for(int i = 0; i < description.size(); i++){
-                description.set(i, description.get(i).replace("&","§").replace("%playerip%", playerip).replace("%player%",player.getDisplayName().replace("%afNB%", String.valueOf(affiliateNumber))));
-            }
-
-
-            itemMeta.setLore(description);
-            item.setItemMeta(itemMeta);
-
-            for(int slot : slots){
-                inventory.setItem(slot, item);
-            }
-        }
-        // SI ON NE VEUT PAS
-        else{
-            ItemStack item = new ItemStack(Material.valueOf(material));
-            ItemMeta itemMeta = item.getItemMeta();
-            assert itemMeta != null;
-            itemMeta.setDisplayName(name);
-            String affiliateNumber = " "+getAffiliatedPlayerCount(player);
-            String playerip = player.getDisplayName().replace("_","").toLowerCase();
-            for(int i = 0;i < description.size(); i++){
-                description.set(i, description.get(i).replace("&","§").replace("%playerip%", playerip).replace("%player%",player.getDisplayName().replace("%afNB%",affiliateNumber)));
-            }
-
-            itemMeta.setLore(description);
-            item.setItemMeta(itemMeta);
-
-            for(int slot : slots){
-                inventory.setItem(slot, item);
-            }
+            skullMeta.setOwningPlayer(player);
+        } else {
+            item = new ItemStack(Material.valueOf(material));
+            itemMeta = item.getItemMeta();
         }
 
+        assert itemMeta != null;
+        itemMeta.setDisplayName(name);
+        String playerip = player.getDisplayName().replace("_", "").toLowerCase();
+        int playerRank = getAffiliationRank(player.getDisplayName());
 
+        List<String> replacedDescription = new ArrayList<>();
+        for (String line : description) {
+            line = line.replace("&", "§");
+            line = line.replace("%playerip%", playerip);
+            line = line.replace("%player%", player.getName());
+            line = line.replace("%top%", String.valueOf(playerRank));
+            line = line.replace("%cashprize%", String.valueOf(main.getConfig().getString("competition.cashPrize")));
+            line = line.replace("%winner%", String.valueOf(getWinnerCount(player.getName())));
+            line = line.replace("%affiliateNumber%", String.valueOf(getAffiliatedPlayerCount(player.getName())));
+            replacedDescription.add(line);
+        }
+
+        itemMeta.setLore(replacedDescription);
+        item.setItemMeta(itemMeta);
+
+        for (int slot : slots) {
+            inventory.setItem(slot, item);
+        }
     }
 
-    public int getAffiliatedPlayerCount(Player playerName) {
+
+    public int getWinnerCount(String playerName) {
         try (Connection connection = getConnection()) {
-            String query = "SELECT COUNT(*) AS count FROM affiliation WHERE player = ?";
+            String query = "SELECT winner FROM affiliation WHERE player = ?";
             try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setString(1, playerName.getDisplayName());
+                statement.setString(1, playerName);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
-                        return resultSet.getInt("count");
+                        return resultSet.getInt("winner");
                     }
                 }
             }
@@ -226,6 +257,46 @@ public class HomeMenu implements CommandExecutor {
         }
         return 0; // Retourne 0 si le joueur n'est pas trouvé ou s'il y a une erreur
     }
+
+
+    public int getAffiliatedPlayerCount(String playerName) {
+        try (Connection connection = getConnection()) {
+            String query = "SELECT affiliated FROM affiliation WHERE player = ?";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setString(1, playerName);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        return resultSet.getInt("affiliated");
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return 0; // Retourne 0 si le joueur n'est pas trouvé ou s'il y a une erreur
+    }
+
+    public int getAffiliationRank(String playerName) {
+        try (Connection connection = getConnection()) {
+            String query = "SELECT player, affiliated FROM affiliation ORDER BY affiliated DESC";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    int playerRank = 1;
+                    while (resultSet.next()) {
+                        String currentPlayerName = resultSet.getString("player");
+                        if (currentPlayerName.equalsIgnoreCase(playerName)) {
+                            return playerRank;
+                        }
+                        playerRank++;
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return -1; // Retourne -1 si le joueur n'est pas trouvé ou s'il y a une erreur
+    }
+
 
     public Connection getConnection() throws SQLException {
         String host = main.getConfig().getString("database.host");

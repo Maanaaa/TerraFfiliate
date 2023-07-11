@@ -3,6 +3,8 @@ version: '${project.version}'
 main: fr.manaa.Main
 api-version: 1.19
 authors: [ _Manaa ]
+softdepend:
+  - Bungee-TerraFfiliate
 description: Plugin of affiliate system for Minecraft server TerraCraft.fr
 commands:
   affiliation:

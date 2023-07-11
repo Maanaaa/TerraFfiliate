@@ -16,7 +16,7 @@ globalmessages:
   noPlayer: "&cErreur, le joueur ciblé semble être hors ligne !"
   reload: "&f>>> &e&lTerraFfiliate a été mis à jour avec succès !"
 competition:
-  cashPrize: 20
+  cashPrize: 40
 onJoinWithAffiliateAdress:
   messages:
     connectedSuccessfullyWith:
@@ -113,7 +113,7 @@ menu:
           - "&bdes récompenses en retour !"
           - " "
           - " "
-          - "&6&k! &r&e20€ À GAGNER CHAQUE MOIS &6&k!"
+          - "&6&k! &r&e%cashprize%€ À GAGNER CHAQUE MOIS &6&k!"
           - " "
           - " "
           - "&b>> Tu donneras cette adresse"
@@ -165,15 +165,15 @@ menu:
         lore:
           - "&6&l%player%"
           - " "
-          - "&7➤ &bVous avez parrainé &f: &6%affiliateNumber% joueurs &b!"
-          - "&bVous êtes &e&l%top% er &r&bdans le classement !"
+          - "&7➤ &bVous avez parrainé &f: &6%affiliateNumber% joueur(s) &b!"
+          - "&bVous êtes &e&l%top% e &r&bdans le classement !"
           - "&bContinuez dans cette lancée pour"
-          - "&bremporter &e&l20 euros &r&b!"
+          - "&bremporter &e&l%cashprize% euros &r&b!"
           - ""
           - "&7➤ &bVous avez remporté(e)"
           - "&ble concours &e&l%winner% &bfois !"
           - " "
-          - "    &6&k! &r&e20€ À GAGNER CHAQUE MOIS &6&k!"
+          - "    &6&k! &r&e%cashprize%€ À GAGNER CHAQUE MOIS &6&k!"
           - "       &7>> &e%playerip%.terracraft.fr &7<<"
           - " "
           - " "

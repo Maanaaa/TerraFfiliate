@@ -58,6 +58,7 @@ public class AffiliationMenuOpened implements Listener {
 
                     String type = main.getConfig().getString("affiliateEnabled.fireworks.fireworks.type");
                     FireworkEffect effect = FireworkEffect.builder().withColor(Color.AQUA, Color.WHITE, Color.ORANGE).with(Type.valueOf(type)).build();
+                    p.sendMessage();
                     Bukkit.getServer().broadcastMessage("\n \n    §e§l⚡ §b§lPLAY.TERRACRAFT.FR §e§l⚡ \n§7➤ §bLe joueur §7"+p.getDisplayName()+" §ba créé son adresse d'affiliation avec /affil et participe donc au concours mensuel !\n \n");
                     meta.addEffect(effect);
                     meta.setPower(1);
