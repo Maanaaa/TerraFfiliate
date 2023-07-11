@@ -23,7 +23,6 @@ public class Global implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
         if (args.length == 0) {
-
             int size = main.getConfig().getInt("menu.enableAffil.size");
             String title = Objects.requireNonNull(main.getConfig().getString("menu.enabledAffil.title")).replace("&", "§");
 
@@ -111,11 +110,14 @@ public class Global implements CommandExecutor {
                 }
             }
             return false;
+            // ----------
+            // RELOAD COMMAND
         } else if(args[0].equalsIgnoreCase("reload")){
             if(sender.hasPermission("affiliation.reload")){
                 main.reloadConfig();
                 sender.sendMessage("§6Configuration de TerraFfiliate rechargée !");
             }
+            // STATS VIEW COMMAND
         }  else if (args[0].equalsIgnoreCase("view")) {
             if (args.length == 2) {
                 if (sender.hasPermission("affiliation.view")) {
@@ -152,7 +154,18 @@ public class Global implements CommandExecutor {
                         }
                 }
             }
+            // SET WINNER COMMAND
+        } else if(args[0].equalsIgnoreCase("winner")){
+            if(args.length == 2){
+                if(sender.hasPermission("affiliation.winner")){
+                    String targetName = args[1];
+                    Player targetPlayer = Bukkit.getPlayer(targetName);
+
+                }
+            }
         }
+
+
 
         return false;
     }

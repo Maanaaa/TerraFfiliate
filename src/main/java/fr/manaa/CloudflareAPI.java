@@ -1,14 +1,6 @@
 package fr.manaa;
 
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -16,9 +8,18 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class CloudflareAPI {
-    private static final String API_EMAIL = "manya.th@icloud.com";
-    private static final String API_KEY = "f3165c7389aa9e88621d3507fe5b213dedd59";
-    private static final String ZONE_ID = "17447cd96f6d79f72ab54258d8b35921";
+
+    private static Main main;
+    private static String API_EMAIL;
+    private static String API_KEY;
+    private static String ZONE_ID;
+
+    public CloudflareAPI(Main main, String API_EMAIL, String API_KEY, String ZONE_ID) {
+        CloudflareAPI.main = main;
+        CloudflareAPI.API_EMAIL = API_EMAIL;
+        CloudflareAPI.API_KEY = API_KEY;
+        CloudflareAPI.ZONE_ID = ZONE_ID;
+    }
 
     public static void createSubdomain(String subdomain, String ipAddress) {
         try {
@@ -31,7 +32,9 @@ public class CloudflareAPI {
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
 
-            String requestBody = "{\"type\":\"A\",\"name\":\"" + subdomain + ".terracraft.fr\",\"content\":\"" + ipAddress + "\",\"proxied\":false}";
+            String domain = main.getConfig().getString("cloudflare.domain");
+
+            String requestBody = "{\"type\":\"A\",\"name\":\"" + subdomain + "."+domain+"\",\"content\":\"" + ipAddress + "\",\"proxied\":false}";
             byte[] requestBodyBytes = requestBody.getBytes(StandardCharsets.UTF_8);
 
             try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {
@@ -65,7 +68,10 @@ public class CloudflareAPI {
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
 
-            String srvRequestBody = "{\"type\": \"SRV\", \"data\": {\"service\": \"_minecraft\", \"proto\": \"_tcp\", \"name\": \""+subdomain+".terracraft.fr\", \"priority\": 1, \"weight\": 5, \"port\": 2021, \"target\": \""+subdomain+".terracraft.fr\"}}";
+            String domain = main.getConfig().getString("cloudflare.domain");
+            int port = main.getConfig().getInt("cloudflare.port");
+
+            String srvRequestBody = "{\"type\": \"SRV\", \"data\": {\"service\": \"_minecraft\", \"proto\": \"_tcp\", \"name\": \""+subdomain+"."+domain+"\", \"priority\": 1, \"weight\": 5, \"port\": "+port+", \"target\": \""+subdomain+"."+domain+"\"}}";
             byte[] srvRequestBodyBytes = srvRequestBody.getBytes(StandardCharsets.UTF_8);
 
             try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {

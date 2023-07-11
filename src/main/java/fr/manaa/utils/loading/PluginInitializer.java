@@ -38,5 +38,12 @@ public class PluginInitializer {
         databaseManager.createTables();
         databaseManager.createIndexes();
         databaseManager.connect();
+
+        // CloudFlare API
+        String API_EMAIL = main.getConfig().getString("cloudflare.API_EMAIL");
+        String API_KEY = main.getConfig().getString("cloudflare.API_KEY");
+        String ZONE_ID = main.getConfig().getString("cloudflare.ZONE_ID");
+        CloudflareAPI cloudflareApi = new CloudflareAPI(this.main, API_EMAIL, API_KEY, ZONE_ID);
+
     }
 }

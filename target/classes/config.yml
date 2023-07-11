@@ -1,14 +1,40 @@
-server:
-  serverAdress: "dev.terracraft.fr"
-database:
-  host: "141.94.97.170"
-  port: 5433
-  database: "affiliation"
-  user: "affil_user"
-  password: "dqkzmldkqzopdkqozdkqzd"
-cloudflare:
-  serverIP: "141.94.97.170"
-  domain: "terracraft.fr"
+#------------------------------------------------------------
+#--------- T E R R A    F F I L L I A T E     CONFIG---------
+#------------------------------------------------------------
+#         -------------------------------------
+#-----------                                 ----------------
+#------------------------------------------------------------
+#--------    DataBase and CloudFlare config     -------------
+#------------------!!! NECESSARY !!!-------------------------
+
+# !!!!! CONFIDENTIAL !!!!!
+database: # MySQL Database
+  host:
+  port:
+  database:
+  user:
+  password:
+cloudflare: # !!!!! CONFIDENTIAL !!!!!
+  #IP Adress to redirect players
+  serverIP:
+  domain: #Exemple : terracraft.fr
+  #CloudFlare API Email (see https://developers.cloudflare.com/api/)
+  API_EMAIL:
+  #CloudFlare API KEy (see https://developers.cloudflare.com/api/)
+  API_KEY:
+  #CloudFlare Zone ID (see (see https://developers.cloudflare.com/api/)
+  ZONE_ID:
+
+
+
+  #--------- T E R R A    F F I L L I A T E     CONFIG---------
+  #------------------------------------------------------------
+
+
+
+
+
+# MENU AND MESSAGES CONFIGURATIONS
 globalmessages:
   noPerm: "&cErreur, vous n'avez pas la permission d'effectuer cette commande !"
   notAPlayer: "&cErreur, vous n'êtes pas un joueur."
@@ -16,7 +42,7 @@ globalmessages:
   noPlayer: "&cErreur, le joueur ciblé semble être hors ligne !"
   reload: "&f>>> &e&lTerraFfiliate a été mis à jour avec succès !"
 competition:
-  cashPrize: 40
+  cashPrize: 40 # Set the cashprize
 onJoinWithAffiliateAdress:
   messages:
     connectedSuccessfullyWith:
