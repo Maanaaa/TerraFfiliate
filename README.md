@@ -39,6 +39,7 @@ TerraFfiliate is an affiliation system plugin for the TerraCraft Minecraft serve
 
 ## PlaceHolderAPI
 
+__LeaderBoard__
 - `%affiliation_first%` - Displays the first player in the leaderboard.
 - `%affiliation_second%` - Displays the second player in the leaderboard.
 - `%affiliation_third%` - Displays the third player in the leaderboard.
