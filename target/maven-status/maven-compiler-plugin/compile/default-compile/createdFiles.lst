@@ -1,6 +1,7 @@
+fr\manaa\CloudflareAPI.class
+fr\manaa\utils\loading\placeholderapi\AffiliationPlaceholder.class
 fr\manaa\utils\loading\DatabaseManager.class
 fr\manaa\affiliator\events\menus\affiliation\AffiliationMenuOpened.class
 fr\manaa\affiliator\cmds\all\Global.class
 fr\manaa\utils\loading\PluginInitializer.class
 fr\manaa\Main.class
-fr\manaa\CloudflareAPI.class

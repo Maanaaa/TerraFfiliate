@@ -4,6 +4,7 @@ import com.google.gson.*;
 import fr.manaa.*;
 import fr.manaa.affiliator.cmds.all.*;
 import fr.manaa.affiliator.events.menus.affiliation.*;
+import fr.manaa.utils.loading.placeholderapi.*;
 import org.bukkit.configuration.file.FileConfiguration;
 
 
@@ -43,6 +44,9 @@ public class PluginInitializer {
         String API_KEY = main.getConfig().getString("cloudflare.API_KEY");
         String ZONE_ID = main.getConfig().getString("cloudflare.ZONE_ID");
         CloudflareAPI cloudflareApi = new CloudflareAPI(this.main, API_EMAIL, API_KEY, ZONE_ID);
+
+        // PlaceHolderAPI
+        new AffiliationPlaceholder(main).register();
 
     }
 
