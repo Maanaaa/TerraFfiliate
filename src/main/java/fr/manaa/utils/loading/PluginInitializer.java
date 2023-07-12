@@ -29,7 +29,8 @@ public class PluginInitializer {
         this.main.saveDefaultConfig();
 
 
-        Objects.requireNonNull(this.main.getCommand("affiliation")).setExecutor(new Global(main));
+        Objects.requireNonNull(this.main.getCommand("affiliation")).setExecutor(new Affiliation(main));
+
         //Objects.requireNonNull(this.main.getCommand("affiliation")).setExecutor(new Reload(main));
         main.getServer().getPluginManager().registerEvents(new AffiliationMenuOpened(main), main);
 
@@ -46,7 +47,7 @@ public class PluginInitializer {
         CloudflareAPI cloudflareApi = new CloudflareAPI(this.main, API_EMAIL, API_KEY, ZONE_ID);
 
         // PlaceHolderAPI
-        new AffiliationPlaceholder(main).register();
+        new LeaderBoard(main).register();
 
     }
 

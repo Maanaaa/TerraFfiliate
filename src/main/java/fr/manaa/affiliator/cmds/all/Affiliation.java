@@ -8,14 +8,13 @@ import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.*;
 import org.jdbi.v3.core.*;
 
-import java.io.*;
 import java.sql.*;
 import java.util.*;
 
-public class Global implements CommandExecutor {
+public class Affiliation implements CommandExecutor {
     private Main main;
 
-    public Global(Main main) {
+    public Affiliation(Main main) {
         this.main = main;
     }
 
@@ -74,7 +73,7 @@ public class Global implements CommandExecutor {
                                 }
                             } else {
                                 // Le joueur n'existe pas dans la base de données, l'ajouter avec is_created = true
-                                String insertQuery = "INSERT INTO affiliation (is_created, player, affiliation_address) VALUES (true, ?, ?)";
+                                String insertQuery = "INSERT INTO affiliation (is_created, player, affiliation_address, affiliated) VALUES (true, ?, ?, 0)";
                                 String insertQuery2 = "INSERT INTO winners (player, winning_number) VALUES (?, ?)";
                                 String playerEdited = player.replace("_", "").toLowerCase();
 
@@ -194,6 +193,11 @@ public class Global implements CommandExecutor {
                 sender.sendMessage("§cVous avez réinitialisé la base de donnée !");
                 Bukkit.getServer().broadcastMessage("§7➤ §cLe système d'affiliation a été réinitialisé");
             }else{sender.sendMessage("§cErreur, vous ne faites pas partie de la liste des opérateurs.");}
+        }else if(args[0].equalsIgnoreCase("rules")){
+            List<String> messages = main.getConfig().getStringList("competition.rules.message");
+            for (String message : messages) {
+                sender.sendMessage(message.replace("&","§"));
+            }
         }
         return false;
     }

@@ -1,5 +1,5 @@
+fr\manaa\utils\loading\placeholderapi\LeaderBoard.class
 fr\manaa\CloudflareAPI.class
-fr\manaa\utils\loading\placeholderapi\AffiliationPlaceholder.class
 fr\manaa\utils\loading\DatabaseManager.class
 fr\manaa\affiliator\events\menus\affiliation\AffiliationMenuOpened.class
 fr\manaa\affiliator\cmds\all\Global.class

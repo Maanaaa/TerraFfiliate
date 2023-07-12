@@ -6,6 +6,7 @@ TerraFfiliate is an affiliation system plugin for the TerraCraft Minecraft serve
 
 - Creation of unique affiliation addresses for players
   ![image](https://github.com/Maanaaa/TerraFfiliate/assets/123769327/0ed6aa1b-c5d4-4a5b-aad7-dfd0ee398ffb)
+  ![image](https://github.com/Maanaaa/TerraFfiliate/assets/123769327/2f323ed6-c262-4df9-b7fa-bd27aa547af7)
 - Tracking the number of affiliated players for each player
   ![image](https://github.com/Maanaaa/TerraFfiliate/assets/123769327/3b44f904-adc3-4986-9814-9f254821877a)
   -----
@@ -13,6 +14,7 @@ TerraFfiliate is an affiliation system plugin for the TerraCraft Minecraft serve
 - Ranking of players based on the number of affiliated players
 - Monthly contest system based on the number of affiliated players
 - PlaceHolderAPI integration
+  ![image](https://github.com/Maanaaa/TerraFfiliate/assets/123769327/a0c5a70a-8a29-42b2-be4e-b56b96fa73e3)
 - Rewards for players with a high number of affiliated players
 - Integration with Cloudflare for DNS record management
 

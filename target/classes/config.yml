@@ -4,19 +4,23 @@
 #         -------------------------------------
 
 # PERMISSIONS :
-#               -
-#               -
-#               -
-#               -
-#               -
-#               -
+#               - affiliation.reload --> Reload this configuration file
+#               - affiliation.view --> See statistics of a player
+#               - affiliation.winner --> Define the winner of the competition
+#               - To reset the database, you have to add your minecraft pseudo in operator list bellow
 # COMMANDS :
 #               - /affiliation --> main command
+#               - /affiliation rules --> see rules of competition
 #               - /affiliation view <player> --> see player stats
 #               - /affiliation reload --> reload this configuration
 #               - /affiliation reset --> reset database
 #               - /affiliation winner <player> --> set the winner
-
+# PLACEHOLDERAPI :
+#               - %affiliation_first% --> show the first player of the leaderboard
+#               - %affiliation_second% --> show the second player of the leaderboard
+#               - %affiliation_third% --> show the third player of the leaderboard
+#               - %affiliation_fourth% --> show the fourth player of the leaderboard
+#               - YOU CAN GO LIKE THIS UP TO TEN
 
 
 
@@ -44,8 +48,10 @@ cloudflare: # !!!!! CONFIDENTIAL !!!!!
   API_KEY:
   #CloudFlare Zone ID (see (see https://developers.cloudflare.com/api/)
   ZONE_ID:
-operator: # List of player who are op (to execute /affil reset command to reset database)
-
+operator: # List of players who are op (to execute /affil reset command to reset database)
+  - "YourPseudo"
+  - "AnotherPlayer"
+  - "ThirdPlayer"
 
   #--------- T E R R A    F F I L L I A T E     CONFIG---------
   #------------------------------------------------------------
@@ -63,6 +69,24 @@ globalmessages:
   reload: "&f>>> &e&lTerraFfiliate a été mis à jour avec succès !"
 competition:
   cashPrize: 40 # Set the cashprize
+  rules:
+    message:
+      - "&7&n                             "
+      - "    &e&l⚡ &b&lPLAY.TERRACRAFT.FR &e&l⚡ "
+      - " "
+      - "&e&l✪ &c&lRègles du concours d'affiliation &e&l✪"
+      - "&7➤ &bToute personne effectuant des connexions vers une adresse d'affiliation par le biais de faux joueurs (attaque de robot notamment) &cse verra éliminée du concours et bannie définitivement de TerraCraft &b!"
+      - "&7➤ &bNotez que vous êtes limités à &b&l3 &bcomptes par adresse IP, toute personne rejoignant le serveur avec VPN sous différents comptes &cse verra éliminée du concours et bannie définitivement de TerraCraft &b!"
+      - "&7➤ &bToute tentative d'intrusion dans le système du concours d'affiliation &csera punie d'une exclusion du concours et d'un bannissement définitif de TerraCraft &b!"
+      - "&7➤ &bTous les bugs doivent être signalés par le biais de notre serveur Discord ou à un membre du staff sur le serveur, &ctoute utilisation d'un quelconque bug avantageux pour quiconque &cvous coûtera une exclusion du concours et un bannissement définitif de Terracraft &b!"
+      - ""
+      - "&7➤ &bTerraCraft te remercie pour ton soutien !"
+      - " "
+      - "&7➤ &bN'hésite pas à créer ton lien d'affiliation"
+      - "   &bet à le partager avec tes amis !"
+      - " "
+      - "     &c&l❤ &b&lTERRACRAFT.FR &c&l❤  "
+      - "&7&n                             "
 onJoinWithAffiliateAdress:
   messages:
     connectedSuccessfullyWith:
@@ -229,13 +253,13 @@ menu:
         slots:
           - 11
       3:
-        display-name: "&cDisponible prochaînement"
+        display-name: "&bLire les règles"
         lore:
           - ""
           - " "
-          - "&7➤ &bNous travaillons chaques jours"
-          - "&bpour vous offrir des nouveautés"
-          - "&bde façon régulière !"
+          - "&7➤ &bIl est important de connaître les règles"
+          - "&bdu concours d'affiliation, clique ici"
+          - "&bpour les lires !"
           - ""
           - "&7➤ &bMerci de jouer sur notre serveur !"
           - " "
@@ -246,8 +270,8 @@ menu:
           - " "
           - " "
           - "         &c&l❤ &b&lTERRACRAFT.FR &c&l❤  "
-        material: PUFFERFISH
-        event: create_affiliate_adress
+        material: IRON_BARS
+        event: see_rules
         slots:
           - 13
       4:

@@ -2,7 +2,7 @@ name: TerraFfiliate
 version: '1.0-SNAPSHOT'
 main: fr.manaa.Main
 api-version: 1.19
-authors: [ _Manaa ]
+authors: [ Mana ]
 softdepend:
   - Bungee-TerraFfiliate
 description: Plugin of affiliate system for Minecraft server TerraCraft.fr

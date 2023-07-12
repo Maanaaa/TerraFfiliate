@@ -6,13 +6,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.sql.*;
-import java.util.*;
 
-public class AffiliationPlaceholder extends PlaceholderExpansion {
+public class LeaderBoard extends PlaceholderExpansion {
 
     private final Main main;
 
-    public AffiliationPlaceholder(Main main) {
+    public LeaderBoard(Main main) {
         this.main = main;
     }
 
