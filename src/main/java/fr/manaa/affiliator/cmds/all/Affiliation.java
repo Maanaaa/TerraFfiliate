@@ -81,7 +81,8 @@ public class Affiliation implements CommandExecutor {
                                 String affiliationAddress = generateUniqueAffiliationAddress(player, connection);
                                 System.out.println("Adresse d'affiliation créée : " + affiliationAddress);
 
-                                String adress = "154.51.39.202";
+                                String adress = main.getConfig().getString("cloudflare.serverIP");
+
 
                                 try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery))  {
                                     insertStatement.setString(1, player);
